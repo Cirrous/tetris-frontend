@@ -4,14 +4,14 @@
     <input type="number" v-model="newHighscore" placeholder="Type in your highscore">
     <button @click="addHighscore">Add</button>
 
-    <ul>
-      <li v-for="score in highscores" :key="score.id">{{ score }}</li>
+    <ul v-if='highscores.length'>
+      <li v-for="scoreObj in highscores" :key="scoreObj.highScore">{{ scoreObj.highScore }}</li>
     </ul>
   </div>
 </template>
 
 <script>
-export default ({
+export default {
   data() {
     return {
       name: 'Leaderboard',
@@ -37,8 +37,8 @@ export default ({
       }
       fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(data => data.forEach(score => {
-          this.highscores.push(score)
+        .then(data => data.forEach(scoreObj => {
+          this.highscores.push(scoreObj)
         }))
         .catch (error => console.log('error', error));
     }
@@ -46,5 +46,5 @@ export default ({
   mounted() {
     this.loadHighscores();
   }
-});
+};
 </script>
