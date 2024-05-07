@@ -11,7 +11,7 @@
 </template>
 
 <script>
-export default {
+export default ({
   data() {
     return {
       highscores: [1000, 800, 600, 400, 200], // Beispiel-Highscore-Liste
@@ -27,7 +27,23 @@ export default {
       } else {
         alert('Please enter a valid number!');
       }
+    },
+    loadHighscores() {
+      const endpoint = 'https://localhost:8080/highscores';
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+      fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+          this.highscores = data;
+        })
+        .catch (error => console.log('error', error));
     }
+  },
+  mounted() {
+    this.loadHighscores();
   }
-};
+});
 </script>
