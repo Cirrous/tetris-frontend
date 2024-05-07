@@ -5,7 +5,7 @@
     <button @click="addHighscore">Add</button>
 
     <ul>
-      <li v-for="(score, index) in highscores" :key="index">{{ score }}</li>
+      <li v-for="score in highscores" :key="score.id">{{ score }}</li>
     </ul>
   </div>
 </template>
@@ -14,7 +14,8 @@
 export default ({
   data() {
     return {
-      highscores: [1000, 800, 600, 400, 200], // Beispiel-Highscore-Liste
+      name: 'Leaderboard',
+      highscores: [],
       newHighscore: null
     };
   },
@@ -29,16 +30,16 @@ export default ({
       }
     },
     loadHighscores() {
-      const endpoint = 'https://localhost:8080/highscores';
+      const endpoint = 'http://localhost:8080/highscores';
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
       }
-      fetch(endpoint)
+      fetch(endpoint, requestOptions)
         .then(response => response.json())
-        .then(data => {
-          this.highscores = data;
-        })
+        .then(data => data.forEach(score => {
+          this.highscores.push(score)
+        }))
         .catch (error => console.log('error', error));
     }
   },
