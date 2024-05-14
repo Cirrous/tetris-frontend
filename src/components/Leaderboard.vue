@@ -43,7 +43,7 @@ export default {
         .catch (error => console.log('error', error));
     },
     loadHighscoresRender() {
-      const endpoint = 'https://tetris-backend-11d1.onrender.com';
+      const endpoint = 'https://tetris-backend-re5u.onrender.com/';
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
