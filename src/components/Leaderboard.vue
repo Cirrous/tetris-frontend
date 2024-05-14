@@ -29,8 +29,21 @@ export default {
         alert('Please enter a valid number!');
       }
     },
-    loadHighscores() {
+    loadHighscoresLocal() {
       const endpoint = 'http://localhost:8080/highscores';
+      const requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+      }
+      fetch(endpoint, requestOptions)
+        .then(response => response.json())
+        .then(data => data.forEach(scoreObj => {
+          this.highscores.push(scoreObj)
+        }))
+        .catch (error => console.log('error', error));
+    },
+    loadHighscoresRender() {
+      const endpoint = 'https://tetris-backend-11d1.onrender.com';
       const requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -44,7 +57,8 @@ export default {
     }
   },
   mounted() {
-    this.loadHighscores();
+    this.loadHighscoresLocal();
+    this.loadHighscoresRender();
   }
 };
 </script>
