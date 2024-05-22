@@ -11,11 +11,11 @@ export default {
       let score = 0
       var playAudio = true
       const colors = [
-        'orange',
-        'red',
-        'purple',
-        'yellow',
-        'blue'
+        'url(/src/assets/tetromino_textures/images/blue_block.png)',
+        'url(/src/assets/tetromino_textures/images/pink_block.png)',
+        'url(/src/assets/tetromino_textures/images/purple_block.png)',
+        'url(/src/assets/tetromino_textures/images/peach_block.png)',
+        'url(/src/assets/tetromino_textures/images/yellow_block.png)'
       ]
 //Tetrominos
       const lTetromino = [
@@ -214,7 +214,7 @@ export default {
         //Spielt die Hintergrundmusik ab
         if (playAudio) {
 
-          var audio = new Audio("musik/tetris_theme.mp3")
+          var audio = new Audio("/src/assets//music/tetris_theme.mp3")
           audio.loop = true
           audio.volume = 0.05
           audio.play();
@@ -253,8 +253,8 @@ export default {
 };
 </script>
 <template>
-  <h3 id="score">Score:<span id="score">0</span></h3>
   <button id="start-button">Start/Pause</button>
+  <h3 id="score">Score:<span id="score">0</span></h3>
   <!-- Spielfeld -->
   <div class="container">
     <div class="grid">
@@ -471,6 +471,7 @@ export default {
       <div class="taken"></div>
     </div>
 
+
     <div class="next-Tetromino-Grid">
       <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
       <div></div>
@@ -493,10 +494,7 @@ export default {
   </div>
 </template>
 <style>
-body {
-  background-color: rgba(0, 255, 0, 0.083);
 
-}
 
 .tetromino {
   background-color:  rgba(0, 208, 255, 0.141);
