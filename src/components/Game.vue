@@ -608,21 +608,21 @@ export default {
 #highscore {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  color: #ffcc00;
+  color: black;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #score {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  color: #ffcc00;
+  color: black;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #level {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  color: #ffcc00;
+  color: black;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 }
