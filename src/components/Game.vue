@@ -5,11 +5,13 @@ export default {
       const grid = document.querySelector('.grid')
       let field = Array.from(document.querySelectorAll('.grid div'))
       const scoreDisplay = document.querySelector('#score')
+      const highscoreDisplay = document.querySelector('#highscore')
       const levelDisplay = document.querySelector('#level')
       const startButton = document.querySelector('#start-button')
       const displayWidth = 10
       let timerId
       let score = 0
+    let highscore = 0
       var playAudio = true
       let linesCleared = 0;
       let level = 1
@@ -93,6 +95,9 @@ export default {
         } else if (e.keyCode === 87 && (timerId) || e.keyCode === 38 && (timerId)) {
           rotate()
         }
+        else if (e.keyCode === 16 && (timerId) || e.keyCode === 86 && (timerId)) {
+          instantDrop()
+        }
       }
 
       document.addEventListener('keydown', control)
@@ -122,7 +127,7 @@ export default {
         gameOver()
       }
 
-// Funktion, um das Tetromino sofort nach unten zu bewegen (Funktioniert noch nicht richtig)
+// Funktion, um das Tetromino sofort nach unten zu bewegen
       function instantDrop() {
         while (!tetromino.some(square => field[currentPosition + square + displayWidth].classList.contains('taken'))) {
           undraw();
@@ -204,20 +209,19 @@ export default {
 
 //Startet oder pausiert das Spiel
       startButton.addEventListener('click', () => {
-        console.log('start button clicked')
         if (timerId) {
           clearInterval(timerId)
           timerId = null
         } else {
           draw()
-          timerId = setInterval(moveDown, 1000 - level*100)
+          timerId = setInterval(moveDown, 1100 - level*100)
           nextRandom = Math.floor(Math.random() * tetrominos.length)
           displayShape()
         }
         //Spielt die Hintergrundmusik ab
         if (playAudio) {
 
-          var audio = new Audio("/src/assets//music/tetris_theme.mp3")
+          var audio = new Audio("/src/assets/music/tetris_theme.mp3")
           audio.loop = true
           audio.volume = 0.05
           audio.play();
@@ -277,7 +281,11 @@ export default {
 //Game Over Bildschirm
       function gameOver() {
         if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
-          scoreDisplay.innerHTML = 'end'
+          if(score > highscore){
+            highscore = score
+            highscoreDisplay.innerHTML = "Highscore:" + highscore
+          }
+
           clearInterval(timerId)
         }
       }
@@ -286,8 +294,7 @@ export default {
 </script>
 <template>
   <button id="start-button">Start/Pause</button>
-  <h3 id="score">Score:<span id="score">0</span></h3>
-  <h3 id="level">Level:<span id="level">0</span></h3>
+
   <!-- Spielfeld -->
   <div class="container">
     <div class="grid">
@@ -503,7 +510,10 @@ export default {
       <div class="taken"></div>
       <div class="taken"></div>
     </div>
-
+    <div class="numbers">
+    <p id="highscore">Highscore:<span id="highscore">0</span></p>
+    <p id="score">Score:<span id="score">0</span></p>
+    <p id="level">Level:<span id="level">1</span></p>
     <div class="next-Tetromino-Grid">
       <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
       <div></div>
@@ -523,10 +533,17 @@ export default {
       <div></div>
       <div></div>
     </div>
+    </div>
   </div>
 </template>
 <style>
 
+.numbers{
+  line-height: 10px;
+  margin-bottom: 400px;
+  margin-left: 50px;
+  width: 132px;
+}
 
 .tetromino {
   background-color: rgba(13, 192, 229, 0.98);
@@ -556,8 +573,8 @@ export default {
 }
 
 .next-Tetromino-Grid {
-  margin-left: 82.5px;
-  margin-bottom: 528px;
+  margin-right: 50px;
+  margin-top: 30px;
   width: 132px;
   height: 132px;
   display: flex;
@@ -588,16 +605,23 @@ export default {
   background-color: #45a049;
 }
 
+#highscore {
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  color: #ffcc00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
 #score {
   font-family: Arial, sans-serif;
-  font-size: 34px;
+  font-size: 25px;
   color: #ffcc00;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #level {
   font-family: Arial, sans-serif;
-  font-size: 34px;
+  font-size: 25px;
   color: #ffcc00;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
