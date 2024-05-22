@@ -5,11 +5,14 @@ export default {
       const grid = document.querySelector('.grid')
       let field = Array.from(document.querySelectorAll('.grid div'))
       const scoreDisplay = document.querySelector('#score')
+      const levelDisplay = document.querySelector('#level')
       const startButton = document.querySelector('#start-button')
       const displayWidth = 10
       let timerId
       let score = 0
       var playAudio = true
+      let linesCleared = 0;
+      let level = 1
       const colors = [
         'url(/src/assets/tetromino_textures/images/blue_block.png)',
         'url(/src/assets/tetromino_textures/images/pink_block.png)',
@@ -207,7 +210,7 @@ export default {
           timerId = null
         } else {
           draw()
-          timerId = setInterval(moveDown, 1000)
+          timerId = setInterval(moveDown, 1000 - level*100)
           nextRandom = Math.floor(Math.random() * tetrominos.length)
           displayShape()
         }
@@ -222,25 +225,54 @@ export default {
         }
       })
 
-//Wenn eine ganze Reihe gefüllt ist, verschwindet diese und der Score wird erhöht
-      function addScore() {
-        for (let i = 0; i < 199; i += displayWidth) {
-          const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9,]
 
-          if (row.every(square => field[square].classList.contains('taken'))) {
-            score += 100
-            scoreDisplay.innerHTML = score
-            row.forEach(square => {
-              field[square].classList.remove('taken')
-              field[square].classList.remove('tetromino')
-              field[square].style.backgroundImage = 'none'
-            })
-            const squaresRemoved = field.splice(i, displayWidth)
-            field = squaresRemoved.concat(field)
-            field.forEach(cell => grid.appendChild(cell))
-          }
+//Wenn eine ganze Reihe gefüllt ist, verschwindet diese und der Score wird erhöht
+    function addScore() {
+      let rowsCleared = 0;
+      for (let i = 0; i < 199; i += displayWidth) {
+        const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9,]
+
+        if (row.every(square => field[square].classList.contains('taken'))) {
+          rowsCleared++;
+          linesCleared++;
+          row.forEach(square => {
+            field[square].classList.remove('taken')
+            field[square].classList.remove('tetromino')
+            field[square].style.backgroundImage = 'none'
+          })
+          const squaresRemoved = field.splice(i, displayWidth)
+          field = squaresRemoved.concat(field)
+          field.forEach(cell => grid.appendChild(cell))
         }
       }
+
+      let multiplier;
+      switch (rowsCleared) {
+        case 1:
+          multiplier = 1;
+          break;
+        case 2:
+          multiplier = 3;
+          break;
+        case 3:
+          multiplier = 5;
+          break;
+        case 4:
+          multiplier = 8;
+          break;
+        default:
+          multiplier = 0;
+      }
+
+      score += 100 * multiplier *level;
+      scoreDisplay.innerHTML = "Score:" + score;
+      levelDisplay.innerHTML = "Level:" + level;
+
+      if (linesCleared >= 10) {
+        level++;
+        linesCleared = 0;
+      }
+    }
 
 //Game Over Bildschirm
       function gameOver() {
@@ -255,6 +287,7 @@ export default {
 <template>
   <button id="start-button">Start/Pause</button>
   <h3 id="score">Score:<span id="score">0</span></h3>
+  <h3 id="level">Level:<span id="level">0</span></h3>
   <!-- Spielfeld -->
   <div class="container">
     <div class="grid">
@@ -471,7 +504,6 @@ export default {
       <div class="taken"></div>
     </div>
 
-
     <div class="next-Tetromino-Grid">
       <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
       <div></div>
@@ -497,7 +529,7 @@ export default {
 
 
 .tetromino {
-  background-color:  rgba(0, 208, 255, 0.141);
+  background-color: rgba(13, 192, 229, 0.98);
   background-size: cover;
 }
 
@@ -509,8 +541,8 @@ export default {
 }
 
 .grid {
-  width: 400px;
-  height: 800px;
+  width: 330px;
+  height: 660px;
   display: flex;
   flex-wrap: wrap;
   background-color: rgba(0, 208, 255, 0.141);
@@ -518,24 +550,24 @@ export default {
 }
 
 .grid div {
-  width: 40px;
-  height: 40px;
+  width: 33px;
+  height: 33px;
 
 }
 
 .next-Tetromino-Grid {
-  margin-left: 100px;
-  margin-bottom: 640px;
-  width: 160px;
-  height: 160px;
+  margin-left: 82.5px;
+  margin-bottom: 528px;
+  width: 132px;
+  height: 132px;
   display: flex;
   flex-wrap: wrap;
   background-color: rgba(0, 208, 255, 0.141);
 }
 
 .next-Tetromino-Grid div{
-  width: 40px;
-  height: 40px;
+  width: 33px;
+  height: 33px;
 }
 
 #start-button {
@@ -563,6 +595,11 @@ export default {
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
+#level {
+  font-family: Arial, sans-serif;
+  font-size: 34px;
+  color: #ffcc00;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
-
+}
 </style>
