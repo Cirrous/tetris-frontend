@@ -16,11 +16,14 @@ export default {
       let linesCleared = 0;
       let level = 1
       const colors = [
-        'url(/src/assets/tetromino_textures/images/blue_block.png)',
-        'url(/src/assets/tetromino_textures/images/pink_block.png)',
-        'url(/src/assets/tetromino_textures/images/purple_block.png)',
-        'url(/src/assets/tetromino_textures/images/peach_block.png)',
-        'url(/src/assets/tetromino_textures/images/yellow_block.png)'
+        'url(/src/assets/tetromino_textures/yellow_block.png)',
+        'url(/src/assets/tetromino_textures/pink_block.png)',
+        'url(/src/assets/tetromino_textures/purple_block.png)',
+        'url(/src/assets/tetromino_textures/peach_block.png)',
+        'url(/src/assets/tetromino_textures/navy_block.png)',
+        'url(/src/assets/tetromino_textures/green_block.png)',
+        'url(/src/assets/tetromino_textures/blue_block.png)',
+
       ]
 //Tetrominos
       const lTetromino = [
@@ -58,7 +61,22 @@ export default {
         [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth + 3]
       ]
 
-      const tetrominos = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino]
+    //ROTIERT NOCH NICHT RICHTIG!
+    const jTetromino = [
+      [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
+      [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 2],
+      [1, 2, displayWidth + 2, displayWidth * 2 + 2],
+      [displayWidth, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2]
+    ]
+
+    const sTetromino = [
+      [1, 2, displayWidth, displayWidth + 1],
+      [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
+      [1, 2, displayWidth, displayWidth + 1],
+      [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1]
+    ]
+
+      const tetrominos = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino, jTetromino, sTetromino]
 
       let currentPosition = 4
       let currentRotation = 0
@@ -192,7 +210,9 @@ export default {
         [0, displayTetWidth, displayTetWidth + 1, displayTetWidth * 2 + 1], //z Tetromino
         [1, displayTetWidth, displayTetWidth + 1, displayTetWidth + 2],//t Tetromino
         [0, 1, displayTetWidth, displayTetWidth + 1],//o Tetromino
-        [1, displayTetWidth + 1, displayTetWidth * 2 + 1, displayTetWidth * 3 + 1]//i Tetromino
+        [1, displayTetWidth + 1, displayTetWidth * 2 + 1, displayTetWidth * 3 + 1],//i Tetromino
+        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],//j Tetromino
+        [1, 2, displayWidth, displayWidth + 1]//s Tetromino
       ]
 
 //Zeigt das nächste Tetromino in der Box neben dem Spielfeld an
@@ -546,7 +566,7 @@ export default {
 }
 
 .tetromino {
-  background-color: rgba(13, 192, 229, 0.98);
+  background-color: rgba(0, 208, 255, 0.141);
   background-size: cover;
 }
 
