@@ -68,7 +68,7 @@ export default {
       [1, 2, displayWidth + 2, displayWidth * 2 + 2],
       [displayWidth, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2]
     ]
-
+    //IST DER GLEICHE WIE Z TETROMINO
     const sTetromino = [
       [1, 2, displayWidth, displayWidth + 1],
       [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
@@ -582,7 +582,9 @@ export default {
   height: 660px;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(0, 208, 255, 0.141);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
+    url("/src/assets/background.png");
 
 }
 
@@ -599,7 +601,9 @@ export default {
   height: 132px;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(0, 208, 255, 0.141);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
+    url("/src/assets/background.png");
 }
 
 .next-Tetromino-Grid div{
@@ -628,21 +632,21 @@ export default {
 #highscore {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  color: black;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #score {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  color: black;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 
 #level {
   font-family: Arial, sans-serif;
   font-size: 25px;
-  color: black;
+  color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
 }
