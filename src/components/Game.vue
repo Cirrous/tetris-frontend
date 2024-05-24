@@ -61,19 +61,18 @@ export default {
         [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth + 3]
       ]
 
-    //ROTIERT NOCH NICHT RICHTIG!
     const jTetromino = [
-      [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
-      [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 2],
-      [1, 2, displayWidth + 2, displayWidth * 2 + 2],
-      [displayWidth, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2]
+      [0, 1, displayWidth +1, displayWidth * 2 + 1],
+      [displayWidth *2, displayWidth *2+1, displayWidth* 2 +2, displayWidth + 2],
+      [0, displayWidth, displayWidth *2, displayWidth *2 +1],
+      [0, 1, 2 , displayWidth]
     ]
-    //IST DER GLEICHE WIE Z TETROMINO
+
     const sTetromino = [
-      [1, 2, displayWidth, displayWidth + 1],
-      [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
-      [1, 2, displayWidth, displayWidth + 1],
-      [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1]
+      [displayWidth, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
+      [displayWidth *2, displayWidth, displayWidth + 1, 1],
+      [displayWidth, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
+      [displayWidth *2, displayWidth, displayWidth + 1, 1]
     ]
 
       const tetrominos = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino, jTetromino, sTetromino]
@@ -211,8 +210,8 @@ export default {
         [1, displayTetWidth, displayTetWidth + 1, displayTetWidth + 2],//t Tetromino
         [0, 1, displayTetWidth, displayTetWidth + 1],//o Tetromino
         [1, displayTetWidth + 1, displayTetWidth * 2 + 1, displayTetWidth * 3 + 1],//i Tetromino
-        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],//j Tetromino
-        [1, 2, displayWidth, displayWidth + 1]//s Tetromino
+        [0, 1, displayTetWidth +1, displayTetWidth * 2 + 1],//j Tetromino
+        [displayTetWidth *2, displayTetWidth, displayTetWidth + 1, 1]//s Tetromino
       ]
 
 //Zeigt das nächste Tetromino in der Box neben dem Spielfeld an
