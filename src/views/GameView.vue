@@ -13,14 +13,12 @@
 </style>
 
 <script>
-import Leaderboard from '../components/Leaderboard.vue'
 import Game from '@/components/Game.vue'
 
 export default {
   name: 'game-view',
   components: {
-    Game,
-    Leaderboard // Registriere die Highscore-Komponente
+    Game
   }
 };
 

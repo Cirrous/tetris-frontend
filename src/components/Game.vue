@@ -16,13 +16,13 @@ export default {
       let linesCleared = 0;
       let level = 1
       const colors = [
-        'url(/src/assets/tetromino_textures/yellow_block.png)',
-        'url(/src/assets/tetromino_textures/pink_block.png)',
-        'url(/src/assets/tetromino_textures/purple_block.png)',
-        'url(/src/assets/tetromino_textures/peach_block.png)',
-        'url(/src/assets/tetromino_textures/navy_block.png)',
-        'url(/src/assets/tetromino_textures/green_block.png)',
-        'url(/src/assets/tetromino_textures/blue_block.png)',
+        'url(/src/assets/navy_block.png)',
+        'url(/src/assets/green_block.png)',
+        'url(/src/assets/purple_block.png)',
+        'url(/src/assets/yellow_block.png)',
+        'url(/src/assets/blue_block.png)',
+        'url(/src/assets/peach_block.png)',
+        'url(/src/assets/pink_block.png)',
 
       ]
 //Tetrominos
@@ -200,18 +200,18 @@ export default {
 
 //Logik für das nächste Tetromino in der Box neben dem Spielfeld anzeigen
       const displaySquares = document.querySelectorAll('.next-Tetromino-Grid div')
-      const displayTetWidth = 4
+      const displayNextWidth = 4
       const displayIndex = 0
 
 //Liste mit Tetrominos die als nächstes rankommen können (unrotiert)
       const upNextTetrominos = [
-        [1, displayTetWidth + 1, displayTetWidth * 2 + 1, 2], //l Tetromino
-        [0, displayTetWidth, displayTetWidth + 1, displayTetWidth * 2 + 1], //z Tetromino
-        [1, displayTetWidth, displayTetWidth + 1, displayTetWidth + 2],//t Tetromino
-        [0, 1, displayTetWidth, displayTetWidth + 1],//o Tetromino
-        [1, displayTetWidth + 1, displayTetWidth * 2 + 1, displayTetWidth * 3 + 1],//i Tetromino
-        [0, 1, displayTetWidth +1, displayTetWidth * 2 + 1],//j Tetromino
-        [displayTetWidth *2, displayTetWidth, displayTetWidth + 1, 1]//s Tetromino
+        [1, displayNextWidth + 1, displayNextWidth * 2 + 1, 2], //l Tetromino
+        [0, displayNextWidth, displayNextWidth + 1, displayNextWidth * 2 + 1], //z Tetromino
+        [1, displayNextWidth, displayNextWidth + 1, displayNextWidth + 2],//t Tetromino
+        [0, 1, displayNextWidth, displayNextWidth + 1],//o Tetromino
+        [1, displayNextWidth + 1, displayNextWidth * 2 + 1, displayNextWidth * 3 + 1],//i Tetromino
+        [0, 1, displayNextWidth +1, displayNextWidth * 2 + 1],//j Tetromino
+        [displayNextWidth *2, displayNextWidth, displayNextWidth + 1, 1]//s Tetromino
       ]
 
 //Zeigt das nächste Tetromino in der Box neben dem Spielfeld an
@@ -240,7 +240,7 @@ export default {
         //Spielt die Hintergrundmusik ab
         if (playAudio) {
 
-          var audio = new Audio("/src/assets/music/tetris_theme.mp3")
+          var audio = new Audio("/src/assets/tetris_theme.mp3")
           audio.loop = true
           audio.volume = 0.05
           audio.play();
