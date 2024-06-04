@@ -16,13 +16,13 @@ export default {
       let linesCleared = 0;
       let level = 1
       const colors = [
-        'url(/src/assets/navy_block.png)',
-        'url(/src/assets/green_block.png)',
-        'url(/src/assets/purple_block.png)',
-        'url(/src/assets/yellow_block.png)',
-        'url(/src/assets/blue_block.png)',
-        'url(/src/assets/peach_block.png)',
-        'url(/src/assets/pink_block.png)',
+        'url(/dist/assets/navy_block.png)',
+        'url(/dist/assets/green_block.png)',
+        'url(/dist/assets/purple_block.png)',
+        'url(/dist/assets/yellow_block.png)',
+        'url(/dist/assets/blue_block.png)',
+        'url(/dist/assets/peach_block.png)',
+        'url(/dist/assets/pink_block.png)',
 
       ]
 //Tetrominos
