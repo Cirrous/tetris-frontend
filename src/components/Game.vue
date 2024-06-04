@@ -16,11 +16,11 @@ export default {
       let linesCleared = 0;
       let level = 1
       const colors = [
-        'url(/dist/navy_block.png)',
-        'url(/dist/green_block.png)',
-        'url(/dist/purple_block.png)',
-        'url(/dist/yellow_block.png)',
-        'url(/dist/blue_block.png)',
+        'url(navy_block.png)',
+        'url(green_block.png)',
+        'url(dist/purple_block.png)',
+        'url(dist/yellow_block.png)',
+        'url(dist/blue_block.png)',
         'url(/dist/peach_block.png)',
         'url(/dist/pink_block.png)',
 
