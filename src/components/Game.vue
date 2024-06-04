@@ -16,13 +16,13 @@ export default {
       let linesCleared = 0;
       let level = 1
       const colors = [
-        'url(/dist/assets/navy_block.png)',
-        'url(/dist/assets/green_block.png)',
-        'url(/dist/assets/purple_block.png)',
-        'url(/dist/assets/yellow_block.png)',
-        'url(/dist/assets/blue_block.png)',
-        'url(/dist/assets/peach_block.png)',
-        'url(/dist/assets/pink_block.png)',
+        'url(/assets/navy_block.png)',
+        'url(/assets/green_block.png)',
+        'url(/assets/purple_block.png)',
+        'url(/assets/yellow_block.png)',
+        'url(/assets/blue_block.png)',
+        'url(/assets/peach_block.png)',
+        'url(/assets/pink_block.png)',
 
       ]
 //Tetrominos
@@ -240,7 +240,7 @@ export default {
         //Spielt die Hintergrundmusik ab
         if (playAudio) {
 
-          var audio = new Audio("/src/assets/tetris_theme.mp3")
+          var audio = new Audio("/assets/tetris_theme.mp3")
           audio.loop = true
           audio.volume = 0.05
           audio.play();
