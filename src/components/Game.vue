@@ -18,11 +18,11 @@ export default {
       const colors = [
         'url(navy_block.png)',
         'url(green_block.png)',
-        'url(dist/purple_block.png)',
-        'url(dist/yellow_block.png)',
-        'url(dist/blue_block.png)',
-        'url(/dist/peach_block.png)',
-        'url(/dist/pink_block.png)',
+        'url(purple_block.png)',
+        'url(yellow_block.png)',
+        'url(blue_block.png)',
+        'url(peach_block.png)',
+        'url(pink_block.png)',
 
       ]
 //Tetrominos
