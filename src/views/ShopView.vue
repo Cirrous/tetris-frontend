@@ -3,9 +3,20 @@
 </script>
 
 <template>
-  <img href='https://static.wikia.nocookie.net/smash5/images/f/fb/EShop_Bag.png/revision/latest?cb=20160901211805'><img>
+  <main>
+  <div class  ="align-content-center">
+  <img  src='../assets/EShop_Bag.jpg' ><img>
+  <h5>Nothing here yet</h5>
+  </div>
+  </main>
 </template>
 
 <style scoped>
+.align-content-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
 
 </style>

@@ -125,6 +125,7 @@ export default {
           undraw()
           currentPosition += displayWidth
           draw()
+          createGhost()
         } else {
           freeze()
         }
@@ -132,7 +133,12 @@ export default {
 
 //Lässt das Tetromino einfrieren, wenn es den Boden oder ein anderes Tetromino trifft
       function freeze() {
-        tetromino.forEach(square => field[currentPosition + square].classList.add('taken'))
+        tetromino.forEach(square => {
+          let currentSquare = field[currentPosition + square];
+          currentSquare.classList.add('taken', 'tetromino');
+          currentSquare.classList.remove('ghost');
+          currentSquare.style.backgroundImage = colors[random];
+        });
         //Lässt das nächste Tetromino fallen
         random = nextRandom
         nextRandom = Math.floor(Math.random() * tetrominos.length)
@@ -164,7 +170,9 @@ export default {
         if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
           currentPosition += 1
         }
+        createGhost()
         draw()
+
       }
 
 //Lässt das Tetromino nach rechts bewegen, es sei denn ein Block oder das Ende des Spielfeldes ist im Weg
@@ -177,7 +185,9 @@ export default {
         if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
           currentPosition -= 1
         }
+        createGhost();
         draw()
+
       }
 
 //Lässt das Tetromino rotieren
@@ -190,13 +200,36 @@ export default {
           undraw();
           currentRotation++;
           if (currentRotation === tetromino.length) {
-            //if currentRotation value is greater that 4 than reset same to 0
             currentRotation = 0;
           }
           tetromino = tetrominos[random][currentRotation];
         }
+        createGhost();
         draw();
+
       }
+
+    // Erstellt eine Kopie des aktuellen Tetrominos, der nach unten fällt
+    function createGhost() {
+      field.forEach(square => {
+        if (square.classList.contains('ghost')) {
+          square.classList.remove('ghost');
+          square.style.backgroundImage = 'none';
+        }
+      });
+
+      let ghostTetromino = tetromino.slice();
+
+      let ghostPosition = currentPosition;
+      while (!ghostTetromino.some(square => field[ghostPosition + square + displayWidth].classList.contains('taken'))) {
+        ghostPosition += displayWidth;
+      }
+
+      ghostTetromino.forEach(square => {
+        field[ghostPosition + square].classList.add('ghost');
+        field[ghostPosition + square].style.backgroundImage = colors[random];
+      });
+    }
 
 //Logik für das nächste Tetromino in der Box neben dem Spielfeld anzeigen
       const displaySquares = document.querySelectorAll('.next-Tetromino-Grid div')
@@ -240,7 +273,7 @@ export default {
         //Spielt die Hintergrundmusik ab
         if (playAudio) {
 
-          var audio = new Audio("/assets/tetris_theme.mp3")
+          var audio = new Audio("tetris_theme.mp3")
           audio.loop = true
           audio.volume = 0.05
           audio.play();
@@ -565,7 +598,6 @@ export default {
 }
 
 .tetromino {
-  background-color: rgba(0, 208, 255, 0.141);
   background-size: cover;
 }
 
@@ -581,9 +613,7 @@ export default {
   height: 660px;
   display: flex;
   flex-wrap: wrap;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
-    url("/src/assets/background.png");
+  background-color: rgba(255, 255, 255, 0.16);
 
 }
 
@@ -600,9 +630,6 @@ export default {
   height: 132px;
   display: flex;
   flex-wrap: wrap;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.15)),
-    url("/src/assets/background.png");
 }
 
 .next-Tetromino-Grid div{
@@ -648,5 +675,10 @@ export default {
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
+}
+
+.ghost {
+  opacity: 0.3;
+  background-size: cover;
 }
 </style>
