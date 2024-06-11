@@ -86,11 +86,12 @@ export default {
       let tetromino = tetrominos[random][currentRotation]
 
       //Zieht ein Tetromino
-      function draw() {
-        tetromino.forEach(square => {
-          field[currentPosition + square].classList.add('tetromino')
-          field[currentPosition + square].style.backgroundImage = colors[random]
-        })
+    function draw() {
+    tetromino.forEach(square => {
+      let currentSquare = field[currentPosition + square];
+      currentSquare.classList.add('tetromino');
+      currentSquare.style.backgroundImage = colors[random];
+    });
       }
 
       //Löscht ein Tetromino
@@ -259,26 +260,24 @@ export default {
         })
       }
 
+    var audio = new Audio("tetris_theme.mp3");
+    audio.loop = true;
+    audio.volume = 0.05;
+
 //Startet oder pausiert das Spiel
       startButton.addEventListener('click', () => {
         if (timerId) {
           clearInterval(timerId)
           timerId = null
+          audio.pause();
         } else {
           draw()
           timerId = setInterval(moveDown, 1100 - level*100)
           nextRandom = Math.floor(Math.random() * tetrominos.length)
           displayShape()
-        }
-        //Spielt die Hintergrundmusik ab
-        if (playAudio) {
-
-          var audio = new Audio("tetris_theme.mp3")
-          audio.loop = true
-          audio.volume = 0.05
           audio.play();
-          playAudio = false
         }
+
       })
 
 
@@ -601,6 +600,12 @@ export default {
   background-size: cover;
 }
 
+.ghost {
+  z-index: 1;
+  opacity: 0.3;
+  background-size: cover;
+}
+
 .container{
   display:flex;
   justify-content: center; /* horizontal zentrieren */
@@ -675,10 +680,5 @@ export default {
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
-}
-
-.ghost {
-  opacity: 0.3;
-  background-size: cover;
 }
 </style>
