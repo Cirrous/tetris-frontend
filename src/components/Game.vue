@@ -2,213 +2,211 @@
 export default {
   mounted() {
     console.log('Component is mounted and ready');
-      const grid = document.querySelector('.grid')
-      let field = Array.from(document.querySelectorAll('.grid div'))
-      const scoreDisplay = document.querySelector('#score')
-      const highscoreDisplay = document.querySelector('#highscore')
-      const levelDisplay = document.querySelector('#level')
-      const startButton = document.querySelector('#start-button')
-      const displayWidth = 10
-      let timerId
-      let score = 0
+    const grid = document.querySelector('.grid')
+    let field = Array.from(document.querySelectorAll('.grid div'))
+    const scoreDisplay = document.querySelector('#score')
+    const highscoreDisplay = document.querySelector('#highscore')
+    const levelDisplay = document.querySelector('#level')
+    const startButton = document.querySelector('#start-button')
+    const displayWidth = 10
+    let timerId
+    let score = 0
     let highscore = 0
-      var playAudio = true
-      let linesCleared = 0;
-      let level = 1
-      const colors = [
-        'url(navy_block.png)',
-        'url(green_block.png)',
-        'url(purple_block.png)',
-        'url(yellow_block.png)',
-        'url(blue_block.png)',
-        'url(peach_block.png)',
-        'url(pink_block.png)',
+    let linesCleared = 0;
+    let level = 1
+    const colors = [
+      'url(navy_block.png)',
+      'url(green_block.png)',
+      'url(purple_block.png)',
+      'url(yellow_block.png)',
+      'url(blue_block.png)',
+      'url(peach_block.png)',
+      'url(pink_block.png)',
 
-      ]
+    ]
 //Tetrominos
-      const lTetromino = [
-        [1, displayWidth + 1, displayWidth * 2 + 1, 2],
-        [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 2],
-        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2],
-        [displayWidth, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2]
-      ]
+    const lTetromino = [
+      [1, displayWidth + 1, displayWidth * 2 + 1, 2],
+      [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 2],
+      [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2],
+      [displayWidth, displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2]
+    ]
 
-      const zTetromino = [
-        [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
-        [displayWidth + 1, displayWidth + 2, displayWidth * 2, displayWidth * 2 + 1],
-        [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
-        [displayWidth + 1, displayWidth + 2, displayWidth * 2, displayWidth * 2 + 1]
-      ]
+    const zTetromino = [
+      [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
+      [displayWidth + 1, displayWidth + 2, displayWidth * 2, displayWidth * 2 + 1],
+      [0, displayWidth, displayWidth + 1, displayWidth * 2 + 1],
+      [displayWidth + 1, displayWidth + 2, displayWidth * 2, displayWidth * 2 + 1]
+    ]
 
-      const tTetromino = [
-        [1, displayWidth, displayWidth + 1, displayWidth + 2],
-        [1, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1],
-        [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1],
-        [1, displayWidth, displayWidth + 1, displayWidth * 2 + 1]
-      ]
+    const tTetromino = [
+      [1, displayWidth, displayWidth + 1, displayWidth + 2],
+      [1, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1],
+      [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth * 2 + 1],
+      [1, displayWidth, displayWidth + 1, displayWidth * 2 + 1]
+    ]
 
-      const oTetromino = [
-        [0, 1, displayWidth, displayWidth + 1],
-        [0, 1, displayWidth, displayWidth + 1],
-        [0, 1, displayWidth, displayWidth + 1],
-        [0, 1, displayWidth, displayWidth + 1]
-      ]
+    const oTetromino = [
+      [0, 1, displayWidth, displayWidth + 1],
+      [0, 1, displayWidth, displayWidth + 1],
+      [0, 1, displayWidth, displayWidth + 1],
+      [0, 1, displayWidth, displayWidth + 1]
+    ]
 
-      const iTetromino = [
-        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1],
-        [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth + 3],
-        [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1],
-        [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth + 3]
-      ]
+    const iTetromino = [
+      [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1],
+      [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth + 3],
+      [1, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 3 + 1],
+      [displayWidth, displayWidth + 1, displayWidth + 2, displayWidth + 3]
+    ]
 
     const jTetromino = [
-      [0, 1, displayWidth +1, displayWidth * 2 + 1],
-      [displayWidth *2, displayWidth *2+1, displayWidth* 2 +2, displayWidth + 2],
-      [0, displayWidth, displayWidth *2, displayWidth *2 +1],
-      [0, 1, 2 , displayWidth]
+      [0, 1, displayWidth + 1, displayWidth * 2 + 1],
+      [displayWidth * 2, displayWidth * 2 + 1, displayWidth * 2 + 2, displayWidth + 2],
+      [0, displayWidth, displayWidth * 2, displayWidth * 2 + 1],
+      [0, 1, 2, displayWidth]
     ]
 
     const sTetromino = [
       [displayWidth, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
-      [displayWidth *2, displayWidth, displayWidth + 1, 1],
+      [displayWidth * 2, displayWidth, displayWidth + 1, 1],
       [displayWidth, displayWidth + 1, displayWidth * 2 + 1, displayWidth * 2 + 2],
-      [displayWidth *2, displayWidth, displayWidth + 1, 1]
+      [displayWidth * 2, displayWidth, displayWidth + 1, 1]
     ]
 
-      const tetrominos = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino, jTetromino, sTetromino]
+    const tetrominos = [lTetromino, zTetromino, tTetromino, oTetromino, iTetromino, jTetromino, sTetromino]
 
-      let currentPosition = 4
-      let currentRotation = 0
-      let nextRandom = 0
+    let currentPosition = 4
+    let currentRotation = 0
+    let nextRandom = 0
 
 //Wählt einen zufälligen Tetromino unrotiert aus
-      let random = Math.floor(Math.random() * tetrominos.length)
-      let tetromino = tetrominos[random][currentRotation]
+    let random = Math.floor(Math.random() * tetrominos.length)
+    let tetromino = tetrominos[random][currentRotation]
 
-      //Zieht ein Tetromino
+    //Zieht ein Tetromino
     function draw() {
-    tetromino.forEach(square => {
-      let currentSquare = field[currentPosition + square];
-      currentSquare.classList.add('tetromino');
-      currentSquare.style.backgroundImage = colors[random];
-    });
-      }
+      tetromino.forEach(square => {
+        let currentSquare = field[currentPosition + square];
+        currentSquare.classList.add('tetromino');
+        currentSquare.style.backgroundImage = colors[random];
+      });
+    }
 
-      //Löscht ein Tetromino
-      function undraw() {
-        tetromino.forEach(square => {
-          field[currentPosition + square].classList.remove('tetromino')
-          field[currentPosition + square].style.backgroundImage = 'none'
-        })
-      }
+    //Löscht ein Tetromino
+    function undraw() {
+      tetromino.forEach(square => {
+        field[currentPosition + square].classList.remove('tetromino')
+        field[currentPosition + square].style.backgroundImage = 'none'
+      })
+    }
 
-      //Deklariert die Steuerung
-      function control(e) {
-        if (e.keyCode === 65 && (timerId) || e.keyCode === 37 && (timerId)) {
-          moveLeft()
-        } else if (e.keyCode === 68 && (timerId) || e.keyCode === 39 && (timerId)) {
-          moveRight()
-        } else if (e.keyCode === 83 && (timerId) || e.keyCode === 40 && (timerId)) {
-          moveDown()
-        } else if (e.keyCode === 87 && (timerId) || e.keyCode === 38 && (timerId)) {
-          rotate()
-        }
-        else if (e.keyCode === 16 && (timerId) || e.keyCode === 86 && (timerId)) {
-          instantDrop()
-        }
+    //Deklariert die Steuerung
+    function control(e) {
+      if (e.keyCode === 65 && (timerId) || e.keyCode === 37 && (timerId)) {
+        moveLeft()
+      } else if (e.keyCode === 68 && (timerId) || e.keyCode === 39 && (timerId)) {
+        moveRight()
+      } else if (e.keyCode === 83 && (timerId) || e.keyCode === 40 && (timerId)) {
+        moveDown()
+      } else if (e.keyCode === 87 && (timerId) || e.keyCode === 38 && (timerId)) {
+        rotate()
+      } else if (e.keyCode === 16 && (timerId) || e.keyCode === 86 && (timerId)) {
+        instantDrop()
       }
+    }
 
-      document.addEventListener('keydown', control)
+    document.addEventListener('keydown', control)
 
-      //Logik für das Runterfallen des Tetrominos
-      function moveDown() {
-        if (!tetromino.some(square => field[currentPosition + square + displayWidth].classList.contains('taken'))) {
-          undraw()
-          currentPosition += displayWidth
-          draw()
-          createGhost()
-        } else {
-          freeze()
-        }
+    //Logik für das Runterfallen des Tetrominos
+    function moveDown() {
+      if (!tetromino.some(square => field[currentPosition + square + displayWidth].classList.contains('taken'))) {
+        undraw()
+        currentPosition += displayWidth
+        draw()
+        createGhost()
+      } else {
+        freeze()
       }
+    }
 
 //Lässt das Tetromino einfrieren, wenn es den Boden oder ein anderes Tetromino trifft
-      function freeze() {
-        tetromino.forEach(square => {
-          let currentSquare = field[currentPosition + square];
-          currentSquare.classList.add('taken', 'tetromino');
-          currentSquare.classList.remove('ghost');
-          currentSquare.style.backgroundImage = colors[random];
-        });
-        //Lässt das nächste Tetromino fallen
-        random = nextRandom
-        nextRandom = Math.floor(Math.random() * tetrominos.length)
-        tetromino = tetrominos[random][currentRotation]
-        currentPosition = 4
-        addScore()
-        draw()
-        displayShape()
-        gameOver()
-      }
+    function freeze() {
+      tetromino.forEach(square => {
+        let currentSquare = field[currentPosition + square];
+        currentSquare.classList.add('taken', 'tetromino');
+        currentSquare.classList.remove('ghost');
+        currentSquare.style.backgroundImage = colors[random];
+      });
+      //Lässt das nächste Tetromino fallen
+      random = nextRandom
+      nextRandom = Math.floor(Math.random() * tetrominos.length)
+      tetromino = tetrominos[random][currentRotation]
+      currentPosition = 4
+      addScore()
+      draw()
+      displayShape()
+      gameOver()
+    }
 
 // Funktion, um das Tetromino sofort nach unten zu bewegen
-      function instantDrop() {
-        while (!tetromino.some(square => field[currentPosition + square + displayWidth].classList.contains('taken'))) {
-          undraw();
-          currentPosition += displayWidth;
-          draw();
-        }
-        freeze();
+    function instantDrop() {
+      while (!tetromino.some(square => field[currentPosition + square + displayWidth].classList.contains('taken'))) {
+        undraw();
+        currentPosition += displayWidth;
+        draw();
       }
+      freeze();
+    }
 
 //Lässt das Tetromino nach links bewegen, es sei denn ein Block oder das Ende des Spielfeldes ist im Weg
-      function moveLeft() {
-        undraw()
-        const isAtLeftEdge = tetromino.some(square => (currentPosition + square) % displayWidth === 0)
+    function moveLeft() {
+      undraw()
+      const isAtLeftEdge = tetromino.some(square => (currentPosition + square) % displayWidth === 0)
 
-        if (!isAtLeftEdge) currentPosition -= 1
+      if (!isAtLeftEdge) currentPosition -= 1
 
-        if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
-          currentPosition += 1
-        }
-        createGhost()
-        draw()
-
+      if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
+        currentPosition += 1
       }
+      createGhost()
+      draw()
+
+    }
 
 //Lässt das Tetromino nach rechts bewegen, es sei denn ein Block oder das Ende des Spielfeldes ist im Weg
-      function moveRight() {
-        undraw()
-        const isAtRightEdge = tetromino.some(square => (currentPosition + square) % displayWidth === displayWidth - 1)
+    function moveRight() {
+      undraw()
+      const isAtRightEdge = tetromino.some(square => (currentPosition + square) % displayWidth === displayWidth - 1)
 
-        if (!isAtRightEdge) currentPosition += 1
+      if (!isAtRightEdge) currentPosition += 1
 
-        if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
-          currentPosition -= 1
-        }
-        createGhost();
-        draw()
-
+      if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
+        currentPosition -= 1
       }
+      createGhost();
+      draw()
+
+    }
 
 //Lässt das Tetromino rotieren
-      function rotate() {
+    function rotate() {
 
-        const isAtLeftEdge = tetromino.some(square => (currentPosition + square) % displayWidth === 0);
-        const isAtRightEdge = tetromino.some(square => (currentPosition + square) % displayWidth === (displayWidth - 1));
+      const isAtLeftEdge = tetromino.some(square => (currentPosition + square) % displayWidth === 0);
+      const isAtRightEdge = tetromino.some(square => (currentPosition + square) % displayWidth === (displayWidth - 1));
 
-        if (!(isAtLeftEdge | isAtRightEdge)) {
-          undraw();
-          currentRotation++;
-          if (currentRotation === tetromino.length) {
-            currentRotation = 0;
-          }
-          tetromino = tetrominos[random][currentRotation];
+      if (!(isAtLeftEdge | isAtRightEdge)) {
+        undraw();
+        currentRotation++;
+        if (currentRotation === tetromino.length) {
+          currentRotation = 0;
         }
-        createGhost();
-        draw();
-
+        tetromino = tetrominos[random][currentRotation];
       }
+      createGhost();
+      draw();
+
+    }
 
     // Erstellt eine Kopie des aktuellen Tetrominos, der nach unten fällt
     function createGhost() {
@@ -233,52 +231,51 @@ export default {
     }
 
 //Logik für das nächste Tetromino in der Box neben dem Spielfeld anzeigen
-      const displaySquares = document.querySelectorAll('.next-Tetromino-Grid div')
-      const displayNextWidth = 4
-      const displayIndex = 0
+    const displaySquares = document.querySelectorAll('.next-Tetromino-Grid div')
+    const displayNextWidth = 4
+    const displayIndex = 0
 
 //Liste mit Tetrominos die als nächstes rankommen können (unrotiert)
-      const upNextTetrominos = [
-        [1, displayNextWidth + 1, displayNextWidth * 2 + 1, 2], //l Tetromino
-        [0, displayNextWidth, displayNextWidth + 1, displayNextWidth * 2 + 1], //z Tetromino
-        [1, displayNextWidth, displayNextWidth + 1, displayNextWidth + 2],//t Tetromino
-        [0, 1, displayNextWidth, displayNextWidth + 1],//o Tetromino
-        [1, displayNextWidth + 1, displayNextWidth * 2 + 1, displayNextWidth * 3 + 1],//i Tetromino
-        [0, 1, displayNextWidth +1, displayNextWidth * 2 + 1],//j Tetromino
-        [displayNextWidth *2, displayNextWidth, displayNextWidth + 1, 1]//s Tetromino
-      ]
+    const upNextTetrominos = [
+      [1, displayNextWidth + 1, displayNextWidth * 2 + 1, 2], //l Tetromino
+      [0, displayNextWidth, displayNextWidth + 1, displayNextWidth * 2 + 1], //z Tetromino
+      [1, displayNextWidth, displayNextWidth + 1, displayNextWidth + 2],//t Tetromino
+      [0, 1, displayNextWidth, displayNextWidth + 1],//o Tetromino
+      [1, displayNextWidth + 1, displayNextWidth * 2 + 1, displayNextWidth * 3 + 1],//i Tetromino
+      [0, 1, displayNextWidth + 1, displayNextWidth * 2 + 1],//j Tetromino
+      [displayNextWidth * 2, displayNextWidth, displayNextWidth + 1, 1]//s Tetromino
+    ]
 
 //Zeigt das nächste Tetromino in der Box neben dem Spielfeld an
-      function displayShape() {
-        displaySquares.forEach(square => {
-          square.classList.remove('tetromino')
-          square.style.backgroundImage = 'none'
-        })
-        upNextTetrominos[nextRandom].forEach(square => {
-          displaySquares[displayIndex + square].classList.add('tetromino')
-          displaySquares[displayIndex + square].style.backgroundImage = colors[nextRandom]
-        })
-      }
+    function displayShape() {
+      displaySquares.forEach(square => {
+        square.classList.remove('tetromino')
+        square.style.backgroundImage = 'none'
+      })
+      upNextTetrominos[nextRandom].forEach(square => {
+        displaySquares[displayIndex + square].classList.add('tetromino')
+        displaySquares[displayIndex + square].style.backgroundImage = colors[nextRandom]
+      })
+    }
 
     var audio = new Audio("tetris_theme.mp3");
     audio.loop = true;
     audio.volume = 0.05;
 
 //Startet oder pausiert das Spiel
-      startButton.addEventListener('click', () => {
-        if (timerId) {
-          clearInterval(timerId)
-          timerId = null
-          audio.pause();
-        } else {
-          draw()
-          timerId = setInterval(moveDown, 1100 - level*100)
-          nextRandom = Math.floor(Math.random() * tetrominos.length)
-          displayShape()
-          audio.play();
-        }
-
-      })
+    startButton.addEventListener('click', () => {
+      if (timerId) {
+        clearInterval(timerId)
+        timerId = null
+        audio.pause();
+      } else {
+        draw()
+        timerId = setInterval(moveDown, 1100 - level * 100)
+        nextRandom = Math.floor(Math.random() * tetrominos.length)
+        displayShape()
+        audio.play();
+      }
+    })
 
 
 //Wenn eine ganze Reihe gefüllt ist, verschwindet diese und der Score wird erhöht
@@ -319,7 +316,7 @@ export default {
           multiplier = 0;
       }
 
-      score += 100 * multiplier *level;
+      score += 100 * multiplier * level;
       scoreDisplay.innerHTML = "Score:" + score;
       levelDisplay.innerHTML = "Level:" + level;
 
@@ -330,16 +327,16 @@ export default {
     }
 
 //Game Over Bildschirm
-      function gameOver() {
-        if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
-          if(score > highscore){
-            highscore = score
-            highscoreDisplay.innerHTML = "Highscore:" + highscore
-          }
-
-          clearInterval(timerId)
+    function gameOver() {
+      if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
+        if (score > highscore) {
+          highscore = score
+          highscoreDisplay.innerHTML = "Highscore:" + highscore
         }
+
+        clearInterval(timerId)
       }
+    }
   },
 };
 </script>
@@ -565,6 +562,7 @@ export default {
     <p id="highscore">Highscore:<span id="highscore">0</span></p>
     <p id="score">Score:<span id="score">0</span></p>
     <p id="level">Level:<span id="level">1</span></p>
+      <p id="next">Next:</p>
     <div class="next-Tetromino-Grid">
       <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
       <div></div>
@@ -680,5 +678,12 @@ export default {
   color: white;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 
+}
+
+#next {
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 </style>
