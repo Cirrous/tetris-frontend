@@ -335,7 +335,33 @@ export default {
         }
 
         clearInterval(timerId)
+        alert('Game Over') //temporärer Game Over Bildschirm
+        resetGame()
       }
+    }
+    function resetGame() {
+      // Reset all game variables
+      currentPosition = 4;
+      currentRotation = 0;
+      nextRandom = 0;
+      random = Math.floor(Math.random() * tetrominos.length);
+      tetromino = tetrominos[random][currentRotation];
+      score = 0;
+      linesCleared = 0;
+      level = 1;
+      field.forEach(square => {
+        square.classList.remove('taken', 'tetromino', 'ghost');
+        square.style.backgroundImage = 'none';
+      });
+
+      // Update score and level display
+      scoreDisplay.innerHTML = "Score:" + score;
+      levelDisplay.innerHTML = "Level:" + level;
+
+      // Start the game again
+      timerId = null
+      nextRandom = Math.floor(Math.random() * tetrominos.length);
+      displayShape();
     }
   },
 };
@@ -587,6 +613,9 @@ export default {
 </template>
 <style>
 
+.tetromino.ghost {
+  opacity: 100;
+}
 .numbers{
   line-height: 10px;
   margin-bottom: 400px;

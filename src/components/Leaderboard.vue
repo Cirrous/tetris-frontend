@@ -52,7 +52,7 @@ export default {
   data() {
     return {
       name: 'Leaderboard',
-      highscores: [{"name":"DPlayer6", "highScore":120},{"name":"Player6", "highScore":120},{"name":"Player7", "highScore":300},{"name":"Player8", "highScore":12},{"name":"Playeer", "highScore":99},{"name":"Player2", "highScore":88},{"name":"Player3", "highScore":77},{"name":"Player4", "highScore":111},{"name":"Player5", "highScore":55}],
+      highscores: [{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"Player6", "highScore":120},{"name":"Player7", "highScore":300},{"name":"Player8", "highScore":12},{"name":"Playeer", "highScore":99},{"name":"Player2", "highScore":88},{"name":"Player3", "highScore":77},{"name":"Player4", "highScore":111},{"name":"Player5", "highScore":55}],
     };
   },
   methods: {
@@ -115,14 +115,15 @@ export default {
   padding: 30px;
   border-radius: 2px;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.12);
-  max-height: 70vh; /* Adjust this value as needed */
-  overflow: auto;
 }
+
 
 
 .c-card__body {
   display: flex;
   justify-content: space-between;
+  max-height: 60vh; /* Adjust this value as needed */
+  overflow: auto;
 }
 
 .c-list {
@@ -139,12 +140,12 @@ export default {
 }
 
 /* Hides scrollbar for Chrome, Safari and Opera */
-.c-card::-webkit-scrollbar {
+.c-card__body::-webkit-scrollbar {
   display: none;
 }
 
 /* Hides scrollbar for IE, Edge and Firefox */
-.c-card {
+.c-card__body {
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
