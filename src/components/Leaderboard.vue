@@ -30,7 +30,7 @@
             </div>
             <div class="c-card__body">
               <ul class="c-list" id="list" v-if='highscores.length'>
-                <li class="c-list__item" v-for="(scoreObj, index) in highscores" :key="scoreObj.highScore" :class="getRankClass(index)">
+                <li class="c-list__item" v-for="(scoreObj, index) in highscores" :key="index" :class="getRankClass(index)">
                   <div> {{ scoreObj.rank }}</div>
                   <div>  {{ scoreObj.name }}</div>
                   <div> {{ scoreObj.highScore }}</div>
@@ -45,6 +45,9 @@
 </template>
 
 <script>
+import axios  from 'axios'
+const url = import.meta.env.VITE_APP_BACKEND_BASE_URL
+
 export default {
   data() {
     return {
@@ -53,24 +56,17 @@ export default {
     };
   },
   methods: {
-    sortHighscores() {
-      this.highscores.sort(((a, b) => {
-      const scoreDifference = b.highScore - a.highScore;
-      if (scoreDifference !== 0) return scoreDifference;
-        return a.name.localeCompare(b.name);
-      }));
-    },
-    calculateRanks() {
-      let rank = 1;
-      let prevScore = this.highscores[0].highScore;
+    loadHighscores() {
+      axios.get(`${url}/highscores`)
+    .then((response) => (this.highscores= response.data))
+    .catch((error) => console.log(error, "Fehler beim Laden der Highscores"))
+},
 
-      for (let i = 0; i < this.highscores.length; i++) {
-        if (i > 0 && this.highscores[i].highScore < prevScore) {
-          rank++;
-        }
-        this.highscores[i].rank = rank;
-        prevScore = this.highscores[i].highScore;
-      }
+    sortHighscores() {
+      this.highscores.sort((a, b) => b.highScore - a.highScore);
+      this.highscores.forEach((scoreObj, index) => {
+        scoreObj.rank = index + 1;
+      });
     },
     getRankClass(index) {
       if (index === 0) return 'first-rank';
@@ -78,38 +74,11 @@ export default {
       if (index === 2) return 'third-rank';
       return '';
     },
-    loadHighscoresLocal() {
-      const endpoint = 'http://localhost:8080/highscores';
-      const requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      }
-      fetch(endpoint, requestOptions)
-        .then(response => response.json())
-        .then(data => data.forEach(scoreObj => {
-          this.highscores.push(scoreObj)
-        }))
-        .catch (error => console.log('error', error));
-    },
-    loadHighscoresRender() {
-      const endpoint = 'https://tetris-backend-re5u.onrender.com/highscores';
-      const requestOptions = {
-        method: 'GET',
-        redirect: 'follow'
-      }
-      fetch(endpoint, requestOptions)
-        .then(response => response.json())
-        .then(data => data.forEach(scoreObj => {
-          this.highscores.push(scoreObj)
-        }))
-        .catch (error => console.log('error', error));
-    }
+
   },
   mounted() {
-    this.loadHighscoresLocal();
-    this.loadHighscoresRender();
+    this.loadHighscores()
     this.sortHighscores();
-    this.calculateRanks();
   }
 };
 </script>
