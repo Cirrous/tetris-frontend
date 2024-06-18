@@ -1,7 +1,7 @@
 <script>
 export default {
   mounted() {
-    console.log('Component is mounted and ready');
+    console.log('Component is mounted and ready')
     const grid = document.querySelector('.grid')
     let field = Array.from(document.querySelectorAll('.grid div'))
     const scoreDisplay = document.querySelector('#score')
@@ -12,7 +12,7 @@ export default {
     let timerId
     let score = 0
     let highscore = 0
-    let linesCleared = 0;
+    let linesCleared = 0
     let level = 1
     const colors = [
       'url(navy_block.png)',
@@ -21,7 +21,7 @@ export default {
       'url(yellow_block.png)',
       'url(blue_block.png)',
       'url(peach_block.png)',
-      'url(pink_block.png)',
+      'url(pink_block.png)'
 
     ]
 //Tetrominos
@@ -87,10 +87,10 @@ export default {
     //Zieht ein Tetromino
     function draw() {
       tetromino.forEach(square => {
-        let currentSquare = field[currentPosition + square];
-        currentSquare.classList.add('tetromino');
-        currentSquare.style.backgroundImage = colors[random];
-      });
+        let currentSquare = field[currentPosition + square]
+        currentSquare.classList.add('tetromino')
+        currentSquare.style.backgroundImage = colors[random]
+      })
     }
 
     //Löscht ein Tetromino
@@ -133,11 +133,11 @@ export default {
 //Lässt das Tetromino einfrieren, wenn es den Boden oder ein anderes Tetromino trifft
     function freeze() {
       tetromino.forEach(square => {
-        let currentSquare = field[currentPosition + square];
-        currentSquare.classList.add('taken', 'tetromino');
-        currentSquare.classList.remove('ghost');
-        currentSquare.style.backgroundImage = colors[random];
-      });
+        let currentSquare = field[currentPosition + square]
+        currentSquare.classList.add('taken', 'tetromino')
+        currentSquare.classList.remove('ghost')
+        currentSquare.style.backgroundImage = colors[random]
+      })
       //Lässt das nächste Tetromino fallen
       random = nextRandom
       nextRandom = Math.floor(Math.random() * tetrominos.length)
@@ -152,11 +152,11 @@ export default {
 // Funktion, um das Tetromino sofort nach unten zu bewegen
     function instantDrop() {
       while (!tetromino.some(square => field[currentPosition + square + displayWidth].classList.contains('taken'))) {
-        undraw();
-        currentPosition += displayWidth;
-        draw();
+        undraw()
+        currentPosition += displayWidth
+        draw()
       }
-      freeze();
+      freeze()
     }
 
 //Lässt das Tetromino nach links bewegen, es sei denn ein Block oder das Ende des Spielfeldes ist im Weg
@@ -184,7 +184,7 @@ export default {
       if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
         currentPosition -= 1
       }
-      createGhost();
+      createGhost()
       draw()
 
     }
@@ -192,19 +192,19 @@ export default {
 //Lässt das Tetromino rotieren
     function rotate() {
 
-      const isAtLeftEdge = tetromino.some(square => (currentPosition + square) % displayWidth === 0);
-      const isAtRightEdge = tetromino.some(square => (currentPosition + square) % displayWidth === (displayWidth - 1));
+      const isAtLeftEdge = tetromino.some(square => (currentPosition + square) % displayWidth === 0)
+      const isAtRightEdge = tetromino.some(square => (currentPosition + square) % displayWidth === (displayWidth - 1))
 
       if (!(isAtLeftEdge | isAtRightEdge)) {
-        undraw();
-        currentRotation++;
+        undraw()
+        currentRotation++
         if (currentRotation === tetromino.length) {
-          currentRotation = 0;
+          currentRotation = 0
         }
-        tetromino = tetrominos[random][currentRotation];
+        tetromino = tetrominos[random][currentRotation]
       }
-      createGhost();
-      draw();
+      createGhost()
+      draw()
 
     }
 
@@ -212,22 +212,22 @@ export default {
     function createGhost() {
       field.forEach(square => {
         if (square.classList.contains('ghost')) {
-          square.classList.remove('ghost');
-          square.style.backgroundImage = 'none';
+          square.classList.remove('ghost')
+          square.style.backgroundImage = 'none'
         }
-      });
+      })
 
-      let ghostTetromino = tetromino.slice();
+      let ghostTetromino = tetromino.slice()
 
-      let ghostPosition = currentPosition;
+      let ghostPosition = currentPosition
       while (!ghostTetromino.some(square => field[ghostPosition + square + displayWidth].classList.contains('taken'))) {
-        ghostPosition += displayWidth;
+        ghostPosition += displayWidth
       }
 
       ghostTetromino.forEach(square => {
-        field[ghostPosition + square].classList.add('ghost');
-        field[ghostPosition + square].style.backgroundImage = colors[random];
-      });
+        field[ghostPosition + square].classList.add('ghost')
+        field[ghostPosition + square].style.backgroundImage = colors[random]
+      })
     }
 
 //Logik für das nächste Tetromino in der Box neben dem Spielfeld anzeigen
@@ -258,35 +258,35 @@ export default {
       })
     }
 
-    var audio = new Audio("tetris_theme.mp3");
-    audio.loop = true;
-    audio.volume = 0.05;
+    var audio = new Audio('tetris_theme.mp3')
+    audio.loop = true
+    audio.volume = 0.05
 
 //Startet oder pausiert das Spiel
     startButton.addEventListener('click', () => {
       if (timerId) {
         clearInterval(timerId)
         timerId = null
-        audio.pause();
+        audio.pause()
       } else {
         draw()
         timerId = setInterval(moveDown, 1100 - level * 100)
         nextRandom = Math.floor(Math.random() * tetrominos.length)
         displayShape()
-        audio.play();
+        audio.play()
       }
     })
 
 
 //Wenn eine ganze Reihe gefüllt ist, verschwindet diese und der Score wird erhöht
     function addScore() {
-      let rowsCleared = 0;
+      let rowsCleared = 0
       for (let i = 0; i < 199; i += displayWidth) {
-        const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9,]
+        const row = [i, i + 1, i + 2, i + 3, i + 4, i + 5, i + 6, i + 7, i + 8, i + 9]
 
         if (row.every(square => field[square].classList.contains('taken'))) {
-          rowsCleared++;
-          linesCleared++;
+          rowsCleared++
+          linesCleared++
           row.forEach(square => {
             field[square].classList.remove('taken')
             field[square].classList.remove('tetromino')
@@ -298,31 +298,31 @@ export default {
         }
       }
 
-      let multiplier;
+      let multiplier
       switch (rowsCleared) {
         case 1:
-          multiplier = 1;
-          break;
+          multiplier = 1
+          break
         case 2:
-          multiplier = 3;
-          break;
+          multiplier = 3
+          break
         case 3:
-          multiplier = 5;
-          break;
+          multiplier = 5
+          break
         case 4:
-          multiplier = 8;
-          break;
+          multiplier = 8
+          break
         default:
-          multiplier = 0;
+          multiplier = 0
       }
 
-      score += 100 * multiplier * level;
-      scoreDisplay.innerHTML = "Score:" + score;
-      levelDisplay.innerHTML = "Level:" + level;
+      score += 100 * multiplier * level
+      scoreDisplay.innerHTML = 'Score:' + score
+      levelDisplay.innerHTML = 'Level:' + level
 
       if (linesCleared >= 10) {
-        level++;
-        linesCleared = 0;
+        level++
+        linesCleared = 0
       }
     }
 
@@ -331,7 +331,7 @@ export default {
       if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
         if (score > highscore) {
           highscore = score
-          highscoreDisplay.innerHTML = "Highscore:" + highscore
+          highscoreDisplay.innerHTML = 'Highscore:' + highscore
         }
 
         clearInterval(timerId)
@@ -339,39 +339,40 @@ export default {
         resetGame()
       }
     }
+
     function resetGame() {
       // Reset all game variables
-      currentPosition = 4;
-      currentRotation = 0;
-      nextRandom = 0;
-      random = Math.floor(Math.random() * tetrominos.length);
-      tetromino = tetrominos[random][currentRotation];
-      score = 0;
-      linesCleared = 0;
-      level = 1;
+      currentPosition = 4
+      currentRotation = 0
+      nextRandom = 0
+      random = Math.floor(Math.random() * tetrominos.length)
+      tetromino = tetrominos[random][currentRotation]
+      score = 0
+      linesCleared = 0
+      level = 1
       field.forEach(square => {
-        square.classList.remove('taken', 'tetromino', 'ghost');
-        square.style.backgroundImage = 'none';
-      });
+        square.classList.remove('taken', 'tetromino', 'ghost')
+        square.style.backgroundImage = 'none'
+      })
 
       // Update score and level display
-      scoreDisplay.innerHTML = "Score:" + score;
-      levelDisplay.innerHTML = "Level:" + level;
+      scoreDisplay.innerHTML = 'Score:' + score
+      levelDisplay.innerHTML = 'Level:' + level
 
       // Start the game again
       timerId = null
-      nextRandom = Math.floor(Math.random() * tetrominos.length);
-      displayShape();
+      nextRandom = Math.floor(Math.random() * tetrominos.length)
+      displayShape()
     }
-  },
-};
+  }
+}
 </script>
 <template>
-  <button id="start-button">Start/Pause</button>
+  <button id='start-button'>Start/Pause</button>
 
   <!-- Spielfeld -->
-  <div class="container">
-    <div class="grid">
+  <div class='container'>
+    <div class='grid'>
       <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
       <div></div>
       <div></div>
@@ -573,41 +574,45 @@ export default {
       <div></div>
       <div></div>
       <div></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
-      <div class="taken"></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
+      <div class='taken'></div>
     </div>
-    <div class="numbers">
-    <p id="highscore">Highscore:<span id="highscore">0</span></p>
-    <p id="score">Score:<span id="score">0</span></p>
-    <p id="level">Level:<span id="level">1</span></p>
-      <p id="next">Next:</p>
-    <div class="next-Tetromino-Grid">
-      <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
+    <div class='info'>
+      <div class='numbers'>
+        <p id="highscore">Highscore:<span id="highscore">0</span></p>
+        <p id="score">Score:<span id="score">0</span></p>
+        <p id="level">Level:<span id="level">1</span></p>
+      </div>
+      <div class='next'>
+        <p>Next:</p>
+        <div class='next-Tetromino-Grid'>
+          <!-- TODO: Die ganzen div Elemente später durch einen Loop ersetzen -->
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -616,11 +621,26 @@ export default {
 .tetromino.ghost {
   opacity: 100;
 }
-.numbers{
-  line-height: 10px;
-  margin-bottom: 400px;
-  margin-left: 50px;
-  width: 132px;
+
+.numbers {
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.info {
+  margin-left: 30px;
+  display: flex;
+  flex-direction: column;
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  color: white;
+}
+
+.info p {
+  margin: 5px;
 }
 
 .tetromino {
@@ -633,40 +653,50 @@ export default {
   background-size: cover;
 }
 
-.container{
-  display:flex;
+.container {
+  margin-top: 5vh;
+  display: flex;
   justify-content: center; /* horizontal zentrieren */
-  align-items: center; /* vertikal zentrieren */
+  align-items: flex-start /* vertikal zentrieren */
 
 }
 
 .grid {
-  width: 330px;
-  height: 660px;
+  width: 300px;
+  height: 600px;
   display: flex;
   flex-wrap: wrap;
-  background-color: rgba(255, 255, 255, 0.16);
-
+  background-color: #0d1117;
+  border: 1px solid #30363d;
+  border-radius: 10px;
 }
 
 .grid div {
-  width: 33px;
-  height: 33px;
+  width: 30px;
+  height: 30px;
 
 }
 
+.next {
+  margin-top: 20px;
+  margin-left: 30px;
+}
+
+.next p {
+
+  margin-bottom: 15px;
+}
+
 .next-Tetromino-Grid {
-  margin-right: 50px;
-  margin-top: 30px;
-  width: 132px;
-  height: 132px;
+  width: 120px;
+  height: 120px;
   display: flex;
   flex-wrap: wrap;
 }
 
-.next-Tetromino-Grid div{
-  width: 33px;
-  height: 33px;
+.next-Tetromino-Grid div {
+  width: 30px;
+  height: 30px;
 }
 
 #start-button {
@@ -685,34 +715,5 @@ export default {
 
 #start-button:hover {
   background-color: #45a049;
-}
-
-#highscore {
-  font-family: Arial, sans-serif;
-  font-size: 25px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#score {
-  font-family: Arial, sans-serif;
-  font-size: 25px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-}
-
-#level {
-  font-family: Arial, sans-serif;
-  font-size: 25px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-
-}
-
-#next {
-  font-family: Arial, sans-serif;
-  font-size: 25px;
-  color: white;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
 </style>

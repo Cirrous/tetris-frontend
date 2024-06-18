@@ -4,10 +4,10 @@
 
 <template>
   <main>
-  <div class  ="align-content-center">
-  <img  src='../assets/EShop_Bag.jpg' ><img>
-  <h5>Nothing here yet</h5>
-  </div>
+    <div class='align-content-center'>
+      <img src='../assets/EShop_Bag.jpg'><img>
+      <h5>Nothing here yet</h5>
+    </div>
   </main>
 </template>
 

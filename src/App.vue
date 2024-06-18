@@ -1,4 +1,4 @@
-<script setup lang="ts">
+<script setup lang='ts'>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import Navbar from '@/components/Navbar.vue'
@@ -9,7 +9,7 @@ import Navbar from '@/components/Navbar.vue'
   <header>
 
 
-    <div class="wrapper">
+    <div class='wrapper'>
     </div>
   </header>
 
@@ -21,7 +21,8 @@ header {
   line-height: 1.5;
   max-height: 100vh;
 }
-#background{
-background-color: #f0f0f0;
+
+#background {
+  background-color: #f0f0f0;
 }
 </style>

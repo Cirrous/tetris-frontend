@@ -3,7 +3,7 @@ import Leaderboard from '../components/Leaderboard.vue'
 </script>
 
 <template>
-<Leaderboard></Leaderboard>
+  <Leaderboard></Leaderboard>
 </template>
 
 <style scoped>

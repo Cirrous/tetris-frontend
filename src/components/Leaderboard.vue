@@ -1,38 +1,39 @@
 <template>
-    <div class="l-wrapper">
-      <div class="c-header">
-      </div>
-      <div class="l-grid">
-        <div class="l-grid__item l-grid__item--sticky">
-          <div class="c-card u-bg--light-gradient u-text--dark">
-            <div class="c-card__body">
-              <div class="u-display--flex u-justify--space-between">
-                <div class="u-text--left">
-                  <div class="u-text--small">My Rank</div>
-                  <h2>3rd Place</h2>
-                </div>
-                <div class="u-text--right">
-                  <div class="u-text--small">My Score</div>
-                  <h2>24</h2>
-                </div>
+  <div class='l-wrapper'>
+    <div class='c-header'>
+    </div>
+    <div class='l-grid'>
+      <div class='l-grid__item l-grid__item--sticky'>
+        <div class='c-card u-bg--light-gradient u-text--dark'>
+          <div class='c-card__body'>
+            <div class='u-display--flex u-justify--space-between'>
+              <div class='u-text--left'>
+                <div class='u-text--small'>My Rank</div>
+                <h2>3rd Place</h2>
+              </div>
+              <div class='u-text--right'>
+                <div class='u-text--small'>My Score</div>
+                <h2>24</h2>
               </div>
             </div>
           </div>
         </div>
-        <div class="l-grid__item">
-          <div class="c-card">
-            <div class="c-card__header">
-              <h1>Leaderboard</h1>
-              <div class = "score-item">
-                <div>Rank</div>
-                <div>Name</div>
-                <div>Score</div>
+      </div>
+      <div class='l-grid__item'>
+        <div class='c-card'>
+          <div class='c-card__header'>
+            <h1>Leaderboard</h1>
+            <div class='score-item'>
+              <div>Rank</div>
+              <div>Name</div>
+              <div>Score</div>
             </div>
-            <div class="c-card__body">
-              <ul class="c-list" id="list" v-if='highscores.length'>
-                <li class="c-list__item" v-for="(scoreObj, index) in highscores" :key="index" :class="getRankClass(index)">
+            <div class='c-card__body'>
+              <ul class='c-list' id='list' v-if='highscores.length'>
+                <li class='c-list__item' v-for='(scoreObj, index) in highscores' :key='index'
+                    :class='getRankClass(index)'>
                   <div> {{ scoreObj.rank }}</div>
-                  <div>  {{ scoreObj.name }}</div>
+                  <div> {{ scoreObj.name }}</div>
                   <div> {{ scoreObj.highscore }}</div>
                 </li>
               </ul>
@@ -41,11 +42,11 @@
         </div>
       </div>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
-import axios  from 'axios'
+import axios from 'axios'
 import api from '@/api.ts'
 
 
@@ -53,41 +54,44 @@ export default {
   data() {
     return {
       name: 'Leaderboard',
-      highscores: [],
-    };
+      highscores: []
+    }
   },
   methods: {
-      loadHighscores() {
-        api.getScores()
-          .then(response => {
-            this.highscores = response.data;
-            this.sortHighscores();
-          })
-          .catch((error) => console.log(error, "Fehler beim Laden der Highscores"))
-      },
+    loadHighscores() {
+      api.getScores()
+        .then(response => {
+          this.highscores = response.data
+          this.sortHighscores()
+        })
+        .catch((error) => console.log(error, 'Fehler beim Laden der Highscores'))
+    },
 
     sortHighscores() {
-      this.highscores.sort((a, b) => b.highscore - a.highscore);
+      this.highscores.sort((a, b) => b.highscore - a.highscore)
       this.highscores.forEach((scoreObj, index) => {
-        scoreObj.rank = index + 1;
-      });
+        scoreObj.rank = index + 1
+      })
     },
     getRankClass(index) {
-      if (index === 0) return 'first-rank';
-      if (index === 1) return 'second-rank';
-      if (index === 2) return 'third-rank';
-      return '';
-    },
+      if (index === 0) return 'first-rank'
+      if (index === 1) return 'second-rank'
+      if (index === 2) return 'third-rank'
+      return ''
+    }
 
   },
   mounted() {
     this.loadHighscores()
   }
-};
+}
 </script>
 
 <style>
 
+.c-card__header {
+  margin-top: -30px;
+}
 .score-item {
   display: flex;
   justify-content: space-between;
@@ -114,12 +118,12 @@ export default {
 
 .c-card {
   position: relative;
-  background-color: #252222;
+  background-color: #0d1117;
+  border: 1px solid #30363d;
   padding: 30px;
-  border-radius: 2px;
+  border-radius: 15px;
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.12);
 }
-
 
 
 .c-card__body {
@@ -138,7 +142,7 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px ;
+  padding: 10px;
 
 }
 
@@ -149,8 +153,8 @@ export default {
 
 /* Hides scrollbar for IE, Edge and Firefox */
 .c-card__body {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .first-rank {

@@ -1,5 +1,7 @@
 <template>
-  <div><Game> </Game></div>
+  <div>
+    <Game></Game>
+  </div>
 </template>
 
 <style>
@@ -20,6 +22,6 @@ export default {
   components: {
     Game
   }
-};
+}
 
 </script>
