@@ -56,9 +56,6 @@ import { RouterLink } from 'vue-router'
         </svg>
       </RouterLink>
     </li>
-    <li>
-      <RouterLink to='/login'>2</RouterLink>
-    </li>
 
   </ul>
 
