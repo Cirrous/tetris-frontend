@@ -33,7 +33,7 @@
                 <li class="c-list__item" v-for="(scoreObj, index) in highscores" :key="index" :class="getRankClass(index)">
                   <div> {{ scoreObj.rank }}</div>
                   <div>  {{ scoreObj.name }}</div>
-                  <div> {{ scoreObj.highScore }}</div>
+                  <div> {{ scoreObj.highscore }}</div>
                 </li>
               </ul>
             </div>
@@ -46,24 +46,28 @@
 
 <script>
 import axios  from 'axios'
-const url = import.meta.env.VITE_APP_BACKEND_BASE_URL
+import api from '@/api.ts'
+
 
 export default {
   data() {
     return {
       name: 'Leaderboard',
-      highscores: [{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"DPlayer6", "highScore":120},{"name":"Player6", "highScore":120},{"name":"Player7", "highScore":300},{"name":"Player8", "highScore":12},{"name":"Playeer", "highScore":99},{"name":"Player2", "highScore":88},{"name":"Player3", "highScore":77},{"name":"Player4", "highScore":111},{"name":"Player5", "highScore":55}],
+      highscores: [],
     };
   },
   methods: {
-    loadHighscores() {
-      axios.get(`${url}/highscores`)
-    .then((response) => (this.highscores= response.data))
-    .catch((error) => console.log(error, "Fehler beim Laden der Highscores"))
-},
+      loadHighscores() {
+        api.getScores()
+          .then(response => {
+            this.highscores = response.data;
+            this.sortHighscores();
+          })
+          .catch((error) => console.log(error, "Fehler beim Laden der Highscores"))
+      },
 
     sortHighscores() {
-      this.highscores.sort((a, b) => b.highScore - a.highScore);
+      this.highscores.sort((a, b) => b.highscore - a.highscore);
       this.highscores.forEach((scoreObj, index) => {
         scoreObj.rank = index + 1;
       });
@@ -78,7 +82,6 @@ export default {
   },
   mounted() {
     this.loadHighscores()
-    this.sortHighscores();
   }
 };
 </script>
