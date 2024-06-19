@@ -7,6 +7,7 @@ import {
 import { defineStore } from 'pinia';
 import { auth } from '@/firebase';
 import { ref } from 'vue';
+import  api from '@/api';
 
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref({});
@@ -20,7 +21,7 @@ export const useAuthStore = defineStore('authStore', () => {
       }
     });
   };
-  const registerUser = (credentials) => {
+  const registerUser = (credentials : any) => {
     createUserWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((userCredential) => {
         // Signed in
@@ -34,12 +35,16 @@ export const useAuthStore = defineStore('authStore', () => {
       });
   };
 
-  const loginUser = (credentials) => {
+  const loginUser = (credentials : any) => {
     signInWithEmailAndPassword(auth, credentials.email, credentials.password)
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+        //Sending user data to backend
+        api.sendLogin(credentials)
+          .then(response => console.log(response))
+          .catch(error => console.error(error));
         // ...
       })
       .catch((error) => {
@@ -58,6 +63,7 @@ export const useAuthStore = defineStore('authStore', () => {
         // An error happened.
       });
   };
+
 
   return {
     registerUser,

@@ -64,6 +64,7 @@ const onSubmit = () => {
   if (!credentials.email || !credentials.password) {
     alert('Please enter email and password');
     return;
+
   }
 
   if (register.value) {
