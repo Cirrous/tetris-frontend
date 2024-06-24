@@ -9,6 +9,7 @@ import { auth } from '@/firebase';
 import { ref } from 'vue';
 import  api from '@/api';
 
+export let userData = { identifier: 'null' };
 export const useAuthStore = defineStore('authStore', () => {
   const user = ref({});
   const init = () => {
@@ -41,8 +42,11 @@ export const useAuthStore = defineStore('authStore', () => {
         // Signed in
         const user = userCredential.user;
         console.log(user);
+        const encoder = new TextEncoder();
+        const hexEmail = Array.from(encoder.encode(credentials.email), byte => byte.toString(16).padStart(2, '0')).join('');
+        userData = { identifier: hexEmail };
         //Sending user data to backend
-        api.sendLogin(credentials)
+        api.sendLogin(userData)
           .then(response => console.log(response))
           .catch(error => console.error(error));
         // ...
@@ -63,7 +67,6 @@ export const useAuthStore = defineStore('authStore', () => {
         // An error happened.
       });
   };
-
 
   return {
     registerUser,
