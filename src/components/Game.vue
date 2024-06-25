@@ -1,4 +1,7 @@
 <script>
+import api from '@/api.ts'
+import { userData } from '@/stores/AuthStore.ts'
+
 export default {
   mounted() {
     console.log('Component is mounted and ready')
@@ -14,6 +17,7 @@ export default {
     let highscore = 0
     let linesCleared = 0
     let level = 1
+    let dataObj = []
     const colors = [
       'url(navy_block.png)',
       'url(green_block.png)',
@@ -24,6 +28,21 @@ export default {
       'url(pink_block.png)'
 
     ]
+
+    async function loadHighscore() {
+      try {
+        const response = await api.getData(userData.identifier)
+        dataObj = response.data
+        highscore = dataObj.highscore
+        highscoreDisplay.innerHTML = 'Highscore:' + highscore
+      } catch (error) {
+        console.log(error, 'Fehler beim Laden der Nutzerdaten')
+      }
+    }
+
+    loadHighscore()
+
+
 //Tetrominos
     const lTetromino = [
       [1, displayWidth + 1, displayWidth * 2 + 1, 2],
@@ -331,40 +350,19 @@ export default {
       if (tetromino.some(square => field[currentPosition + square].classList.contains('taken'))) {
         if (score > highscore) {
           highscore = score
-          highscoreDisplay.innerHTML = 'Highscore:' + highscore
-        }
+          try {
+            api.newHighscore(userData.identifier, highscore)
+              .then(response => {
+                console.log(response.data)
+              })
+          } catch (error) {
+            console.log(error, 'Fehler beim Laden der Nutzerdaten')
+          }
 
-        clearInterval(timerId)
-        alert('Game Over') //temporärer Game Over Bildschirm
-        resetGame()
+        }
       }
     }
-
-    function resetGame() {
-      // Reset all game variables
-      currentPosition = 4
-      currentRotation = 0
-      nextRandom = 0
-      random = Math.floor(Math.random() * tetrominos.length)
-      tetromino = tetrominos[random][currentRotation]
-      score = 0
-      linesCleared = 0
-      level = 1
-      field.forEach(square => {
-        square.classList.remove('taken', 'tetromino', 'ghost')
-        square.style.backgroundImage = 'none'
-      })
-
-      // Update score and level display
-      scoreDisplay.innerHTML = 'Score:' + score
-      levelDisplay.innerHTML = 'Level:' + level
-
-      // Start the game again
-      timerId = null
-      nextRandom = Math.floor(Math.random() * tetrominos.length)
-      displayShape()
-    }
-  }
+  },
 }
 </script>
 <template>
