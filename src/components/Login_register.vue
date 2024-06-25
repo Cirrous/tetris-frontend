@@ -104,6 +104,7 @@ li:hover {
 .button {
   background-color: #19751d;
   color: #c9d1d9;
+  font-size: 16px;
 }
 
 .button:hover {

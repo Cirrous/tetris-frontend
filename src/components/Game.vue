@@ -358,8 +358,11 @@ export default {
           } catch (error) {
             console.log(error, 'Fehler beim Laden der Nutzerdaten')
           }
-
+          highscoreDisplay.innerHTML = 'Highscore:' + highscore
         }
+        audio.pause();
+        clearInterval(timerId);
+        alert('Game Over')
       }
     }
   },
