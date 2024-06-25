@@ -1,45 +1,33 @@
-# tetris-frontend
+# My Tetris Project
 
-This template should help get you started developing with Vue 3 in Vite.
+This project is an implementation of the classic Tetris game, developed with Vue.js and TypeScript.
 
-## Recommended IDE Setup
+## Features
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- Classic Tetris game
+- Create an account to save your highscore
+- Compete with other players on the leaderboard
 
-## Type Support for `.vue` Imports in TS
+## Controls
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+The Tetris blocks can be moved left, right, and down with w,a,s or the arrow keys.
+Rotate the Tetris blocks with w or up key.
+The immediate dropping of the Tetris blocks can be done with the shift key.
+Press the spacebar to pause the game.
 
-## Customize configuration
+## Installation and Execution
 
-See [Vite Configuration Reference](https://vitejs.dev/config/).
+Ensure you have Node.js and npm installed on your computer.
 
-## Project Setup
+1. Clone the repository to your local computer.
+2. Navigate to the project directory and run `npm install` to install the necessary dependencies.
+3. Run `npm run dev` to start the project.
+4. Open your web browser and navigate to `http://localhost:5173` to play the game.
 
-```sh
-npm install
-```
+## Contributors
 
-### Compile and Hot-Reload for Development
+- Christian Raisch
 
-```sh
-npm run dev
-```
+## License
 
-### Type-Check, Compile and Minify for Production
-
-```sh
-npm run build
-```
-
-### Run Unit Tests with [Vitest](https://vitest.dev/)
-
-```sh
-npm run test:unit
-```
-
-### Lint with [ESLint](https://eslint.org/)
-
-```sh
-npm run lint
-```
+This project is under the MIT license.

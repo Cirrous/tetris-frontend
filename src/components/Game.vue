@@ -289,7 +289,7 @@ export default {
         audio.pause()
       } else {
         draw()
-        timerId = setInterval(moveDown, 1100 - level * 100)
+        timerId = setInterval(moveDown, 1100 - (level * 100))
         nextRandom = Math.floor(Math.random() * tetrominos.length)
         displayShape()
         audio.play()
