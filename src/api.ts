@@ -13,7 +13,6 @@ interface ScoreData {
   identifier: string
   highscore: number
   name: string
-
 }
 
 export default {
@@ -26,6 +25,10 @@ export default {
 
   newHighscore(identifier: string, highscore: number){
     return apiClient.post('/newhighscore', {identifier, highscore})
+  },
+
+  newName(identifier: string, name: string){
+    return apiClient.post('/newName', {identifier, name})
   },
 
   getScores() {                 // Ruft die Liste aller Scores vom Backend ab. Diese Methode gibt ein Array von ScoreResponse zurück,

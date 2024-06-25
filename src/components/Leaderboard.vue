@@ -9,11 +9,11 @@
             <div class='u-display--flex u-justify--space-between'>
               <div class='u-text--left'>
                 <div class='u-text--small'>My Rank</div>
-                <h2>3rd Place</h2>
+                <h2>#{{getUserRankAndScore().rank}}</h2>
               </div>
               <div class='u-text--right'>
                 <div class='u-text--small'>My Score</div>
-                <h2>24</h2>
+                <h2>{{getUserRankAndScore().score}}</h2>
               </div>
             </div>
           </div>
@@ -48,6 +48,7 @@
 <script>
 import axios from 'axios'
 import api from '@/api.ts'
+import { userData } from '@/stores/AuthStore.ts'
 
 
 export default {
@@ -78,8 +79,12 @@ export default {
       if (index === 1) return 'second-rank'
       if (index === 2) return 'third-rank'
       return ''
-    }
+    },
 
+    getUserRankAndScore() {
+      const userScoreObj = this.highscores.find(scoreObj => scoreObj.identifier === userData.identifier);
+      return userScoreObj ? { rank: userScoreObj.rank, score: userScoreObj.highscore } : { rank: 'N/A', score: 'N/A' };
+    },
   },
   mounted() {
     this.loadHighscores()

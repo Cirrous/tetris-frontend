@@ -6,7 +6,8 @@
    data() {
      return {
        name: 'Profile',
-       user: []
+       user: [],
+       newname: ''
      }
    },
    methods: {
@@ -14,10 +15,20 @@
        api.getData(userData.identifier)
          .then(response => {
            this.user = response.data
+           this.newname = this.user.name
          })
          .catch((error) => console.log(error, 'Fehler beim Laden der Nutzerdaten'))
-     }
-   },
+     },
+
+   changeUserName() {
+     api.newName(userData.identifier, this.newname)
+       .then(response => {
+         console.log(response)
+       })
+       .catch((error) => console.log(error, 'Fehler beim Ändern des Namens'))
+   }
+ },
+
    mounted() {
      this.loadUser()
    }
@@ -32,7 +43,10 @@
       <div class="top-container">
 
         <div class="ml-3">
-          <h5 class="name">{{user.name}}</h5>
+          <form @submit.prevent="changeUserName">
+            <input v-model="newname" type="text" :placeholder="user.name" />
+            <button type="submit">Change Name</button>
+          </form>
           <p class="mail">{{user.highscore}}</p>
         </div>
       </div>
