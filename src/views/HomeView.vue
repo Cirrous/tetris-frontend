@@ -8,6 +8,7 @@ import Login_register from '@/components/Login_register.vue'
   <main>
     <div class='c'>
     <TheWelcome />
+      <div id = "space"> </div>
     <Login_register />
     </div>
   </main>
@@ -16,8 +17,12 @@ import Login_register from '@/components/Login_register.vue'
 <style>
 .c {
   display: flex;
-  justify-content: center; /* horizontal zentrieren */
-  align-items: center; /* vertikal zentrieren */
-  height: 80vh
+  justify-content: center;
+  align-items: center;
+  height: 80vh;
+}
+
+#space {
+  margin: 0px 30px 0px 30px;
 }
 </style>

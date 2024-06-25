@@ -11,6 +11,7 @@ import { RouterLink } from 'vue-router'
         <h4>By Christian Raisch</h4>
         <RouterLink to='/game' id='game-button'>Start Game</RouterLink>
       </div>
+      <h5>Login to save your highscore and compete angainst others</h5>
     </div>
   </div>
 </template>
@@ -32,7 +33,7 @@ import { RouterLink } from 'vue-router'
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #4caf50;
+  background-color: #19751d;
   color: white;
   padding: 10px 20px;
   font-size: 16px;
@@ -50,5 +51,9 @@ import { RouterLink } from 'vue-router'
   justify-content: center; /* horizontal zentrieren */
   align-items: center; /* vertikal zentrieren */
   height: 80vh
+}
+
+h5 {
+  margin-top: 54px;
 }
 </style>

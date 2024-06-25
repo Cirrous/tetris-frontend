@@ -25,7 +25,7 @@
        .then(response => {
          console.log(response)
        })
-       .catch((error) => console.log(error, 'Fehler beim Ändern des Namens'))
+       .catch((error) => console.log(error, 'Fehler beim ändern des Namens'))
    }
  },
 
@@ -43,11 +43,13 @@
       <div class="top-container">
 
         <div class="ml-3">
-          <form @submit.prevent="changeUserName">
-            <input v-model="newname" type="text" :placeholder="user.name" />
-            <button type="submit">Change Name</button>
+          <h2>Username</h2>
+          <form @submit.prevent="changeUserName" class='form'>
+            <input v-model="newname" type="text" :placeholder="user.name"  class='input' />
+            <button type="submit" class='button'>Change Name</button>
           </form>
-          <p class="mail">{{user.highscore}}</p>
+          <h2>Highscore</h2>
+          <p  class = "form">{{user.highscore}}</p>
         </div>
       </div>
 
@@ -67,89 +69,38 @@
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   padding: 2rem !important;
 }
-.top-container{
-  display: flex;
-  align-items: center;
-}
 
-.middle-container{
-  background-color: #eee;
-  border-radius: 12px;
-
-}
-.middle-container:hover {
-  border: 1px solid #5957f9;
-}
-.dollar-div{
-  background-color: #5957f9;
-  padding: 12px;
+.form{
+  width: 100%;
+  padding: 0.5rem;
   border-radius: 10px;
+  border: none;
+  background-color: #161b22;
+  color: white;
 }
-.round-div{
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
 
+.button {
+  background-color: #19751d;;
+  border: none;
+  color: #c9d1d9;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+.input {
+  font-size: 1rem;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-.dollar{
-  font-size: 16px !important;
-  color: #5957f9 !important;
-  font-weight: bold !important;
-}
-
-
-.current-balance{
-  font-size: 15px;
-  color: #272727;
-  font-weight: bold;
-}
-.amount{
-  color: #5957f9;
-  font-size: 16px;
-  font-weight: bold;
-}
-.dollar-sign{
-  font-size: 16px;
-  color: #272727;
-  font-weight: bold;
-}
-
-.recent-border{
-  border-left: 2px solid #5957f9;
-  display: flex;
-  align-items: center;
-
-}
-.recent-border:hover {
-  border-bottom: 1px solid #dee2e6!important;
-}
-
-.recent-orders{
-  font-size: 16px;
-  font-weight: 700;
-  color: #5957f9;
-  margin-left: 2px;
-}
-
-.wishlist{
-  font-size: 16px;
-  font-weight: 700;
-  color: #272727;
-
-}
-.wishlist-border:hover{
-  border-bottom: 1px solid #dee2e6!important;
-}
-.fashion-studio{
-  font-size: 16px;
-  font-weight: 700;
-  color: #272727;
-}
-.fashion-studio-border:hover {
-  border-bottom: 1px solid #dee2e6!important;
+  background-color: #161b22;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  width: 90%;
+  margin-bottom: 0.5rem;
 }
 </style>

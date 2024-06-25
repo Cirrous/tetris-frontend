@@ -1,16 +1,9 @@
 <template>
-  <div>
-    <div class="tabs is-centered">
-      <ul>
-        <li :class="{ 'is-active': !register }"><a @click.prevent="register = false">Login</a></li>
-        <li :class="{ 'is-active': register }"><a @click.prevent="register = true">Register</a></li>
-      </ul>
-      <button class="button is-danger" @click.prevent="onLogout">Logout</button>
-    </div>
-
+  <div class = "form">
     <form @submit.prevent="onSubmit">
-      <div class="card auth-form">
+      <div class="card auth-form, logout-button-container">
         <div class="card-content">
+          <button class="button is-danger, logout-button" @click.prevent="onLogout">Logout</button>
           <div class="title has-text-centered">{{ formTitle }}</div>
           <div class="content">
             <div class="field">
@@ -36,6 +29,13 @@
                 <button class="button is-danger">{{ formTitle }}</button>
               </p>
             </div>
+          </div>
+          <div class="tabs">
+            <ul>
+              <li :class="{ 'is-active': !register }"><a @click.prevent="register = false">Login </a></li>
+              <li > <a>|</a></li>
+              <li :class="{ 'is-active': register }"><a @click.prevent="register = true">Register</a></li>
+            </ul>
           </div>
         </div>
       </div>
@@ -78,15 +78,67 @@ const onLogout = () => {
 };
 </script>
 
-<style scoped>
-.auth-form {
-  max-width: 400px;
-  margin: 0 auto;
+
+<style>
+
+li {
+  display: inline;
+  margin-right: 10px;
+}
+li:hover {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-card auth-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.tabs {
+  margin-top: 20px;
 }
+
+.card {
+  background-color: #0d1117;
+  color: #c9d1d9;
+}
+
+
+
+.button {
+  background-color: #19751d;
+  color: #c9d1d9;
+}
+
+.button:hover {
+  background-color: #45a049;
+}
+
+.logout-button-container {
+  position: relative;
+}
+
+.logout-button {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.title {
+  font-size: 2em; /* Adjust this value to your preference */
+  padding-bottom: 30px;
+}
+
+.input {
+  font-size: 1rem;
+  display: flex;
+  background-color: #161b22;
+  border: none;
+  color: white;
+  padding: 0.5rem;
+  border-radius: 6px;
+  width: 90%;
+  margin-bottom: 0.5rem;
+}
+
+div.card button.button {
+  border-radius: 5px;
+}
+
 </style>
