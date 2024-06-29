@@ -1,6 +1,7 @@
 <script>
 import api from '@/api.ts'
 import { userData } from '@/stores/AuthStore.ts'
+import { useRouter } from 'vue-router'
 
 export default {
   mounted() {

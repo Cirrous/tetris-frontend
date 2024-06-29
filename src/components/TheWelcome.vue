@@ -11,7 +11,7 @@ import { RouterLink } from 'vue-router'
         <h4>By Christian Raisch</h4>
         <RouterLink to='/game' id='game-button'>Start Game</RouterLink>
       </div>
-      <h5>Login to save your highscore and compete angainst others</h5>
+      <h5><RouterLink to='/credentials'>Login</RouterLink> to save your highscore and compete angainst others</h5>
     </div>
   </div>
 </template>

@@ -4,6 +4,7 @@ import GameView from '../views/GameView.vue'
 import ShopView from '@/views/ShopView.vue'
 import LeaderboardView from '@/views/LeaderboardView.vue'
 import ProfileView from '@/views/ProfileView.vue'
+import Login_registerView from '@/views/Login_registerView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -35,7 +36,13 @@ const router = createRouter({
       path: '/profile',
       name: 'Profile',
       component: ProfileView
-    }
+    },
+
+    {
+    path: '/credentials',
+  name: 'Credentials',
+  component: Login_registerView
+}
   ]
 })
 

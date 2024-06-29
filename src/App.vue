@@ -13,12 +13,9 @@ onMounted(() => {
 <template>
   <Navbar></Navbar>
   <header>
-
-
     <div class="wrapper">
     </div>
   </header>
-
   <RouterView />
 </template>
 

@@ -1,6 +1,8 @@
 # My Tetris Project
+### [Play the game here!](https://tetris-frontend.onrender.com)
 
 This project is an implementation of the classic Tetris game, developed with Vue.js and TypeScript.
+
 
 ## Features
 
@@ -10,12 +12,12 @@ This project is an implementation of the classic Tetris game, developed with Vue
 
 ## Controls
 
-The Tetris blocks can be moved left, right, and down with w,a,s or the arrow keys.
-Rotate the Tetris blocks with w or up key.
-The immediate dropping of the Tetris blocks can be done with the shift key.
-Press the spacebar to pause the game.
+- The Tetris blocks can be moved left, right, and down with w,a,s or the arrow keys.
+- Rotate the Tetris blocks with w or up key.
+- The immediate dropping of the Tetris blocks can be done with the shift key.
+- Press the spacebar to pause the game.
 
-## Installation and Execution
+## Installation and Execution to play the game locally
 
 Ensure you have Node.js and npm installed on your computer.
 
@@ -26,7 +28,7 @@ Ensure you have Node.js and npm installed on your computer.
 
 ## Contributors
 
-- Christian Raisch
+Christian Raisch
 
 ## License
 

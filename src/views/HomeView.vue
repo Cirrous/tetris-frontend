@@ -9,7 +9,6 @@ import Login_register from '@/components/Login_register.vue'
     <div class='c'>
     <TheWelcome />
       <div id = "space"> </div>
-    <Login_register />
     </div>
   </main>
 </template>
